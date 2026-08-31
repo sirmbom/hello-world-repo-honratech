@@ -1,0 +1,4 @@
+# Why uv over python
+# Command uv: uv venv, Command python: python -m venv
+# uv venv, uv run, uv add
+Caching - saves t
