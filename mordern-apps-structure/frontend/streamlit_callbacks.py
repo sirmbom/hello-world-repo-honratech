@@ -1,6 +1,34 @@
 import streamlit as st
 from datetime import datetime
 
+def add_to_session(user_input):
+    if user_input:
+        st.session_state["input_error"] = False  # Clear error a=5
+        time_now = datetime.now().strftime("%H:%M")
+        # Append user message
+        st.session_state["messages"].append({
+            "role": "user",
+            "text": user_input,
+            "time": time_now
+        })
+
+        matched_reply = None
+        for action_text, reply_text in quick_actions.items():
+            if action_text.lower() in user_input.strip().lower():
+                matched_reply = reply_text
+                break
+
+        assistant_reply = matched_reply or "Based on your message, I can provide some insights on this."
+        st.session_state["messages"].append({
+            "role": "assistant",
+            "text": assistant_reply,
+            "time": time_now
+        })
+    else:
+        st.session_state["input_error"] = True  # Set error
+        return False
+
+
 st.set_page_config(page_title="DEEPSEED Chat", layout="wide", initial_sidebar_state="expanded")
 
 # --- Quick actions and their replies ---
@@ -77,32 +105,6 @@ else:
                     with st.chat_message(msg["role"]):
                         st.write(msg["text"]) # ({msg.get('time', '')})
                     
-def add_to_session(user_input):
-    if user_input:
-        st.session_state["input_error"] = False  # Clear error
-        time_now = datetime.now().strftime("%H:%M")
-        # Append user message
-        st.session_state["messages"].append({
-            "role": "user",
-            "text": user_input,
-            "time": time_now
-        })
-
-        matched_reply = None
-        for action_text, reply_text in quick_actions.items():
-            if action_text.lower() in user_input.strip().lower():
-                matched_reply = reply_text
-                break
-
-        assistant_reply = matched_reply or " Based on your message, I can provide some insights on this."
-        st.session_state["messages"].append({
-            "role": "assistant",
-            "text": assistant_reply,
-            "time": time_now
-        })
-    else:
-        st.session_state["input_error"] = True  # Set error
-        return False
 
 with st.form(key="chat_form", clear_on_submit=True):
     col1, col2 = st.columns([0.85, 0.15])
