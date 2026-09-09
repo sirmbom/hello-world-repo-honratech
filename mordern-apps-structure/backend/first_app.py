@@ -1,15 +1,20 @@
 from fastapi import FastAPI, Body
 from typing import Optional
-from pydantic import BaseModel
 
-app = FastAPI()
+app = FastAPI(title="Hello World APP")
+
+@app.get("/") # Decorator - @ # HTTP method: GET, POST
+def home(action: str):
+    """ This endpoint is used to expose the root. It need s a action parameter. """ # Docstring
+    return {"status": "online", "system": "Hello World", "action": action}
+
+
 # create decorator function
 @app.get("/hello")
-async def hello():
+async def hello(): # asynchronous
     return "Hello Deepseeds!"
 
 """uvicorn app:app --reload" "where 'app' b4 : is filename, 'app' after : is class name, --reload reloads browser automatically"""
-
 
 
 @app.get("/sentiment-analysis")
@@ -101,6 +106,9 @@ def search_product(category: str, page: int, id:Optional[int]=None):
 #             {"error": "id doesn't exist"}
 #         }
 
+
+from pydantic import BaseModel
+
 # REQUEST BODY
 # define the type of data or the structure of data to be stored
 class UserData(BaseModel):
@@ -109,12 +117,10 @@ class UserData(BaseModel):
     favMeal: str
     isSleepy: bool
 
-@app.post("/posting-data")
+@app.post("/posting-data", response_model=UserData)
 def posting_data(request:UserData): # (...) -> ellipses syntax
     # expecting data from client
-    return {
-        "data": request
-    }
+    return UserData(name=request.name, age=request.age, favMeal=request.favMeal, isSleepy=request.isSleepy)
 
 # Exercise
 class AiData(BaseModel):
