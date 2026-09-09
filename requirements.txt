@@ -1,2 +1,5 @@
 python-dotenv==1.2.3
 streamlit==1.63.0
+fastapi
+uvicorn
+pydantic
