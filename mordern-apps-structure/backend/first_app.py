@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from typing import Optional
 
 app = APIRouter(prefix="/multi", tags=["Miscellaneous"])
 
