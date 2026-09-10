@@ -1,6 +1,4 @@
-from fastapi import FastAPI, UploadFile, Form, File, APIRouter
-from typing import Optional
-from pydantic import BaseModel
+from fastapi import UploadFile, Form, File, APIRouter
 
 app = APIRouter(prefix="/profile", tags=["Profile"])
 

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import APIRouter
 from typing import Optional
 
 app = APIRouter(prefix="/product", tags=["Product"])
