@@ -1,12 +1,7 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, APIRouter
 from typing import Optional
 
-app = FastAPI(title="Hello World APP")
-
-@app.get("/") # Decorator - @ # HTTP method: GET, POST
-def home(action: str):
-    """ This endpoint is used to expose the root. It need s a action parameter. """ # Docstring
-    return {"status": "online", "system": "Hello World", "action": action}
+app = APIRouter(prefix="/multi", tags=["Miscellaneous"])
 
 
 # create decorator function

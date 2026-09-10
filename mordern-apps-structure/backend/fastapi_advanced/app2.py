@@ -1,7 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from typing import Optional
 
-app = FastAPI(title="App 2")
+app = APIRouter(prefix="/product", tags=["Product"])
 
 # Dictionary of data
 data = {
