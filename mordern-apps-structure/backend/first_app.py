@@ -2,7 +2,17 @@ from fastapi import FastAPI, Body
 from typing import Optional
 from pydantic import BaseModel
 
-app = FastAPI()
+app = FastAPI(title="Hello world APP")
+
+@app.get("/")
+def home(action: str):
+    """This end point is used to expose the root parameter"""
+    return {"status": "online", "system": "hello world", "action": action}
+
+
+
+
+
 # create decorator function
 @app.get("/hello")
 async def hello():
